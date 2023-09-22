@@ -131,7 +131,7 @@ class PopupWindow extends StatefulWidget {
         popKey.currentContext!.findRenderObject() == null) return;
     Navigator.push(
         context,
-        BrnPopupRoute(
+        PhoenixPopupRoute(
             child: PopupWindow(
           context,
           arrowHeight: arrowHeight,
@@ -427,11 +427,11 @@ class _TrianglePainter extends CustomPainter {
   }
 }
 
-class BrnPopupRoute extends PopupRoute {
+class PhoenixPopupRoute extends PopupRoute {
   final Duration _duration = const Duration(milliseconds: 200);
   Widget child;
 
-  BrnPopupRoute({required this.child});
+  PhoenixPopupRoute({required this.child});
 
   @override
   Color? get barrierColor => null;
@@ -501,7 +501,7 @@ class BrnPopupListWindow {
         popKey.currentContext!.findRenderObject() == null) return;
     Navigator.push(
         context,
-        BrnPopupRoute(
+        PhoenixPopupRoute(
             child: PopupWindow(
           context,
           arrowHeight: arrowHeight,
@@ -582,7 +582,7 @@ class BrnPopupListWindow {
 
     Navigator.push(
       context,
-      BrnPopupRoute(
+      PhoenixPopupRoute(
         child: PopupWindow(
           context,
           arrowHeight: arrowHeight,
