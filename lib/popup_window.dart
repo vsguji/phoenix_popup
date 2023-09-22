@@ -342,8 +342,9 @@ class _BrnPopupWindowState extends State<PopupWindow> {
                                     alignment: PlaceholderAlignment.middle,
                                     child: Padding(
                                       padding: const EdgeInsets.only(left: 6),
-                                      child: BrunoTools.getAssetImage(
-                                          BaseAsset.iconPopupClose),
+                                      child: PhoenixTools.getAssetImage(
+                                          BaseAsset.iconPopupClose,
+                                          package: 'phoenix_popup'),
                                     ))
                                 : const TextSpan(text: "")
                           ]))
@@ -362,8 +363,9 @@ class _BrnPopupWindowState extends State<PopupWindow> {
                               widget.isShowCloseIcon
                                   ? Padding(
                                       padding: const EdgeInsets.only(left: 6),
-                                      child: BrunoTools.getAssetImage(
-                                          BaseAsset.iconPopupClose),
+                                      child: PhoenixTools.getAssetImage(
+                                          BaseAsset.iconPopupClose,
+                                          package: 'phoenix_popup'),
                                     )
                                   : const Text("")
                             ],
@@ -510,7 +512,7 @@ class BrnPopupListWindow {
           backgroundColor: backgroundColor,
           isShowCloseIcon: hasCloseIcon,
           offset: offset,
-          widget: BrunoTools.isEmpty(data)
+          widget: PhoenixTools.isEmpty(data)
               ? Container(
                   constraints:
                       BoxConstraints(maxWidth: maxWidth, maxHeight: maxHeight),
@@ -592,7 +594,7 @@ class BrnPopupListWindow {
           arrowOffset: arrowOffset,
           isShowCloseIcon: hasCloseIcon,
           offset: offset,
-          widget: BrunoTools.isEmpty(data)
+          widget: PhoenixTools.isEmpty(data)
               ? Container(
                   constraints:
                       BoxConstraints(maxWidth: maxWidth, maxHeight: maxHeight),
@@ -664,10 +666,10 @@ class BrnPopupListWindow {
   /// 遍历数据，计算每个 Item 内容，返回所有 Item 可展示的最大宽度
   static double _getMaxWidth(TextStyle textStyle, List<String> data) {
     double maxWidth = 0;
-    if (!BrunoTools.isEmpty(data)) {
+    if (!PhoenixTools.isEmpty(data)) {
       Size? maxWidthSize;
       for (String entity in data) {
-        Size size = BrnTextUtil.textSize(entity, textStyle);
+        Size size = PhoenixTextUtil.textSize(entity, textStyle);
         if (maxWidthSize == null) {
           maxWidthSize = size;
         } else {
