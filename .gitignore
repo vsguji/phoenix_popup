@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # See https://www.dartlang.org/guides/libraries/private-files
 
 # Files and directories created by pub
@@ -26,7 +26,7 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
-=======
+
 # Miscellaneous
 *.class
 *.log
@@ -57,4 +57,4 @@ migrate_working_dir/
 .dart_tool/
 .packages
 build/
->>>>>>> 30fa614 ([new] 新建)
+

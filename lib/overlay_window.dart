@@ -1,29 +1,30 @@
 import 'dart:core';
 import 'dart:math';
 
-import 'package:bruno/src/components/popup/brn_measure_size.dart';
 import 'package:flutter/material.dart';
 
+import 'measure_size.dart';
+
 /// popWindow位于targetView的方向
-enum BrnOverlayPopDirection { none, top, bottom, left, right }
+enum OverlayPopDirection { none, top, bottom, left, right }
 
 /// * 描述: Overlay 工具类。
-class BrnOverlayWindow extends StatefulWidget {
+class OverlayWindow extends StatefulWidget {
   final BuildContext context;
 
   /// 锚点 Widget 的 key，用于 OverlayWindow 的定位
   final GlobalKey targetKey;
 
   /// OverlayWindow 相对于 key 的展示位置， 默认 bottom
-  final BrnOverlayPopDirection popDirection;
+  final OverlayPopDirection popDirection;
 
   /// 要展示的内容
   final Widget content;
 
-  const BrnOverlayWindow({
+  const OverlayWindow({
     required this.context,
     required this.targetKey,
-    this.popDirection = BrnOverlayPopDirection.bottom,
+    this.popDirection = OverlayPopDirection.bottom,
     this.content = const SizedBox.shrink(),
   });
 
@@ -42,7 +43,7 @@ class BrnOverlayWindow extends StatefulWidget {
   static BrnOverlayController? showOverlayWindow(
       BuildContext context, GlobalKey? targetKey,
       {Widget? content,
-      BrnOverlayPopDirection popDirection = BrnOverlayPopDirection.bottom,
+      OverlayPopDirection popDirection = OverlayPopDirection.bottom,
       bool autoDismissOnTouchOutSide = true,
       Function? onDismiss}) {
     assert(content != null);
@@ -65,7 +66,7 @@ class BrnOverlayWindow extends StatefulWidget {
                   }
                 }
               : null,
-          child: BrnOverlayWindow(
+          child: OverlayWindow(
             context: context,
             content: content,
             targetKey: targetKey,
@@ -78,7 +79,7 @@ class BrnOverlayWindow extends StatefulWidget {
   }
 }
 
-class _BrnOverlayWindowState extends State<BrnOverlayWindow> {
+class _BrnOverlayWindowState extends State<OverlayWindow> {
   /// targetView的位置
   Rect? _showRect;
 
@@ -97,7 +98,8 @@ class _BrnOverlayWindowState extends State<BrnOverlayWindow> {
   @override
   Widget build(BuildContext context) {
     this._showRect = _getWidgetGlobalRect(widget.targetKey);
-    this._screenSize = View.of(context).physicalSize / View.of(context).devicePixelRatio;
+    this._screenSize =
+        View.of(context).physicalSize / View.of(context).devicePixelRatio;
     if (this._showRect == null) {
       return const SizedBox.shrink();
     }
@@ -132,54 +134,54 @@ class _BrnOverlayWindowState extends State<BrnOverlayWindow> {
     }
     marginLeft = max(0, marginLeft);
 
-    if (widget.popDirection == BrnOverlayPopDirection.left) {
+    if (widget.popDirection == OverlayPopDirection.left) {
       realContent = Row(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Expanded(
+            flex: _left.toInt(),
             child: Container(
                 padding: EdgeInsets.only(top: marginTop),
                 alignment: Alignment.topRight,
                 child: contentPart),
-            flex: _left.toInt(),
           ),
           Expanded(
-            child: placeHolderPart,
             flex: (_screenSize.width - _left).toInt(),
+            child: placeHolderPart,
           )
         ],
       );
-    } else if (widget.popDirection == BrnOverlayPopDirection.right) {
+    } else if (widget.popDirection == OverlayPopDirection.right) {
       realContent = Row(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Expanded(
-            child: placeHolderPart,
             flex: (_right).toInt(),
+            child: placeHolderPart,
           ),
           Expanded(
+            flex: (_screenSize.width - _right).toInt(),
             child: Container(
                 padding: EdgeInsets.only(top: marginTop),
                 alignment: Alignment.topLeft,
                 child: contentPart),
-            flex: (_screenSize.width - _right).toInt(),
           )
         ],
       );
-    } else if (widget.popDirection == BrnOverlayPopDirection.top) {
+    } else if (widget.popDirection == OverlayPopDirection.top) {
       realContent = Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Expanded(
+            flex: _top.toInt(),
             child: Container(
                 padding: EdgeInsets.only(top: marginLeft),
                 alignment: Alignment.bottomLeft,
                 child: contentPart),
-            flex: _top.toInt(),
           ),
           Expanded(
-            child: placeHolderPart,
             flex: (_screenSize.height - _top).toInt(),
+            child: placeHolderPart,
           )
         ],
       );
@@ -188,12 +190,12 @@ class _BrnOverlayWindowState extends State<BrnOverlayWindow> {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Expanded(
-            child: placeHolderPart,
             flex: _bottom.toInt(),
+            child: placeHolderPart,
           ),
           Expanded(
-            child: Container(alignment: Alignment.topLeft, child: contentPart),
             flex: (_screenSize.height - _bottom).toInt(),
+            child: Container(alignment: Alignment.topLeft, child: contentPart),
           )
         ],
       );
@@ -223,13 +225,13 @@ class _BrnOverlayWindowState extends State<BrnOverlayWindow> {
   /// 计算popUpWindow显示的位置
   ///
   void _calculateOffset(Rect showRect) {
-    if (widget.popDirection == BrnOverlayPopDirection.left) {
+    if (widget.popDirection == OverlayPopDirection.left) {
       _left = showRect.left;
-    } else if (widget.popDirection == BrnOverlayPopDirection.right) {
+    } else if (widget.popDirection == OverlayPopDirection.right) {
       _right = showRect.right;
-    } else if (widget.popDirection == BrnOverlayPopDirection.bottom) {
+    } else if (widget.popDirection == OverlayPopDirection.bottom) {
       _bottom = showRect.bottom;
-    } else if (widget.popDirection == BrnOverlayPopDirection.top) {
+    } else if (widget.popDirection == OverlayPopDirection.top) {
       // 在targetView上方
       _top = showRect.top;
     }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:phoenix_base/phoenix.dart';
 
 /// popup window 位于 targetView 的方向
-enum BrnPopupDirection {
+enum PopupDirection {
   /// 箭头朝上
   top,
 
@@ -13,7 +13,7 @@ enum BrnPopupDirection {
 }
 
 /// 通用 Popup Window 提示，带三角号
-class BrnPopupWindow extends StatefulWidget {
+class PopupWindow extends StatefulWidget {
   /// 依附的组件的 Context
   final BuildContext context;
 
@@ -42,7 +42,7 @@ class BrnPopupWindow extends StatefulWidget {
   final double offset;
 
   /// popUpWindow 位于 targetView 的方向，默认为 [BrnPopupDirection.bottom]
-  final BrnPopupDirection popDirection;
+  final PopupDirection popDirection;
 
   /// 自定义 widget
   final Widget? widget;
@@ -66,7 +66,7 @@ class BrnPopupWindow extends StatefulWidget {
   /// 自动将 popWindow 在 targetView 上面弹出
   final double turnOverFromBottom;
 
-  BrnPopupWindow(this.context,
+  PopupWindow(this.context,
       {Key? key,
       this.text,
       required this.popKey,
@@ -75,7 +75,7 @@ class BrnPopupWindow extends StatefulWidget {
       this.backgroundColor,
       this.isShowCloseIcon = false,
       this.offset = 0,
-      this.popDirection = BrnPopupDirection.bottom,
+      this.popDirection = PopupDirection.bottom,
       this.widget,
       this.paddingInsets =
           const EdgeInsets.only(left: 18, top: 14, right: 18, bottom: 14),
@@ -107,7 +107,7 @@ class BrnPopupWindow extends StatefulWidget {
   /// [dismissCallback] popUpWindow 消失回调，此回调会在 pop 之后执行
   /// [turnOverFromBottom] popWindow 小于此值的时候，自动将 popWindow 在 targetView 上面弹出，默认 50
   static void showPopWindow(context, String? text, GlobalKey popKey,
-      {BrnPopupDirection popDirection = BrnPopupDirection.bottom,
+      {PopupDirection popDirection = PopupDirection.bottom,
       double arrowHeight = 6.0,
       TextStyle? textStyle =
           const TextStyle(fontSize: 16, color: Color(0xFFFFFFFF)),
@@ -132,7 +132,7 @@ class BrnPopupWindow extends StatefulWidget {
     Navigator.push(
         context,
         BrnPopupRoute(
-            child: BrnPopupWindow(
+            child: PopupWindow(
           context,
           arrowHeight: arrowHeight,
           text: text,
@@ -157,7 +157,7 @@ class BrnPopupWindow extends StatefulWidget {
   _BrnPopupWindowState createState() => _BrnPopupWindowState();
 }
 
-class _BrnPopupWindowState extends State<BrnPopupWindow> {
+class _BrnPopupWindowState extends State<PopupWindow> {
   /// targetView的位置
   Rect _showRect = Rect.zero;
 
@@ -177,7 +177,7 @@ class _BrnPopupWindowState extends State<BrnPopupWindow> {
   double _bottom = 0;
 
   /// 箭头展示方向
-  late BrnPopupDirection _popDirection;
+  late PopupDirection _popDirection;
 
   /// 去除透明度的边框色
   late Color _borderColor;
@@ -224,14 +224,14 @@ class _BrnPopupWindowState extends State<BrnPopupWindow> {
       _expandedRight = false;
       _right = _screenSize.width - _showRect.right + widget.spaceMargin;
     }
-    if (_popDirection == BrnPopupDirection.bottom) {
+    if (_popDirection == PopupDirection.bottom) {
       // 在targetView下方
       _top = _showRect.height + _showRect.top + widget.offset;
       if ((_screenSize.height - _top) < widget.turnOverFromBottom) {
-        _popDirection = BrnPopupDirection.top;
+        _popDirection = PopupDirection.top;
         _bottom = _screenSize.height - _showRect.top + widget.offset;
       }
-    } else if (_popDirection == BrnPopupDirection.top) {
+    } else if (_popDirection == PopupDirection.top) {
       // 在targetView上方
       _bottom = _screenSize.height - _showRect.top + widget.offset;
     }
@@ -272,16 +272,16 @@ class _BrnPopupWindowState extends State<BrnPopupWindow> {
                 _left +
                     (_showRect.width - _arrowSpacing) / 2 -
                     widget.spaceMargin,
-            top: _popDirection == BrnPopupDirection.bottom
+            top: _popDirection == PopupDirection.bottom
                 ? _top - widget.arrowHeight
                 : null,
-            bottom: _popDirection == BrnPopupDirection.top
+            bottom: _popDirection == PopupDirection.top
                 ? _bottom - widget.arrowHeight
                 : null,
             child: CustomPaint(
               size: Size(15.0, widget.arrowHeight),
               painter: _TrianglePainter(
-                  isDownArrow: _popDirection == BrnPopupDirection.top,
+                  isDownArrow: _popDirection == PopupDirection.top,
                   color: _backgroundColor,
                   borderColor: _borderColor),
             ),
@@ -291,16 +291,16 @@ class _BrnPopupWindowState extends State<BrnPopupWindow> {
                 _right +
                     (_showRect.width - _arrowSpacing) / 2 -
                     widget.spaceMargin,
-            top: _popDirection == BrnPopupDirection.bottom
+            top: _popDirection == PopupDirection.bottom
                 ? _top - widget.arrowHeight
                 : null,
-            bottom: _popDirection == BrnPopupDirection.top
+            bottom: _popDirection == PopupDirection.top
                 ? _bottom - widget.arrowHeight
                 : null,
             child: CustomPaint(
               size: Size(15.0, widget.arrowHeight),
               painter: _TrianglePainter(
-                  isDownArrow: _popDirection == BrnPopupDirection.top,
+                  isDownArrow: _popDirection == PopupDirection.top,
                   color: _backgroundColor,
                   borderColor: _borderColor),
             ),
@@ -315,8 +315,8 @@ class _BrnPopupWindowState extends State<BrnPopupWindow> {
     return Positioned(
         left: _expandedRight ? _left : null,
         right: _expandedRight ? null : _right,
-        top: _popDirection == BrnPopupDirection.bottom ? _top : null,
-        bottom: _popDirection == BrnPopupDirection.top ? _bottom : null,
+        top: _popDirection == PopupDirection.bottom ? _top : null,
+        bottom: _popDirection == PopupDirection.top ? _bottom : null,
         child: Container(
             padding: widget.paddingInsets,
             decoration: BoxDecoration(
@@ -327,7 +327,7 @@ class _BrnPopupWindowState extends State<BrnPopupWindow> {
                 maxWidth: _expandedRight
                     ? _screenSize.width - _left
                     : _screenSize.width - _right,
-                maxHeight: _popDirection == BrnPopupDirection.bottom
+                maxHeight: _popDirection == PopupDirection.bottom
                     ? _screenSize.height - _top
                     : _screenSize.height - _bottom - statusBarHeight),
             child: widget.widget ??
@@ -477,7 +477,7 @@ class BrnPopupListWindow {
     context,
     GlobalKey popKey, {
     List<String>? data,
-    BrnPopupDirection popDirection = BrnPopupDirection.bottom,
+    PopupDirection popDirection = PopupDirection.bottom,
     BrnPopupListItemBuilder? itemBuilder,
     BrnPopupListItemClick? onItemClick,
     VoidCallback? onDismiss,
@@ -502,7 +502,7 @@ class BrnPopupListWindow {
     Navigator.push(
         context,
         BrnPopupRoute(
-            child: BrnPopupWindow(
+            child: PopupWindow(
           context,
           arrowHeight: arrowHeight,
           popKey: popKey,
@@ -556,7 +556,7 @@ class BrnPopupListWindow {
   /// [onDismiss] popUpWindow消失回调
   static void showPopListWindow(context, GlobalKey popKey,
       {List<String>? data,
-      BrnPopupDirection popDirection = BrnPopupDirection.bottom,
+      PopupDirection popDirection = PopupDirection.bottom,
       double offset = 0,
       double? arrowOffset,
       BrnPopupListItemClick? onItemClick,
@@ -583,7 +583,7 @@ class BrnPopupListWindow {
     Navigator.push(
       context,
       BrnPopupRoute(
-        child: BrnPopupWindow(
+        child: PopupWindow(
           context,
           arrowHeight: arrowHeight,
           popKey: popKey,
