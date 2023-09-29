@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:phoenix_base/phoenix.dart';
 
+import 'extension/popup_assets.dart';
+
 /// popup window 位于 targetView 的方向
 enum PopupDirection {
   /// 箭头朝上
@@ -364,7 +366,7 @@ class _BrnPopupWindowState extends State<PopupWindow> {
                                   ? Padding(
                                       padding: const EdgeInsets.only(left: 6),
                                       child: PhoenixTools.getAssetImage(
-                                          BaseAsset.iconPopupClose,
+                                          PopUpAssets.iconPopupClose,
                                           package: 'phoenix_popup'),
                                     )
                                   : const Text("")
