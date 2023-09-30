@@ -30,17 +30,17 @@ class OverlayWindow extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _BrnOverlayWindowState();
+    return _OverlayWindowState();
   }
 
-  /// BrnOverlayWindow 工具方发，用于快速弹出 Overlay，
-  /// 返回 [BrnOverlayController] 用于控制 Overlaywindow 的隐藏
+  /// OverlayWindow 工具方发，用于快速弹出 Overlay，
+  /// 返回 [OverlayController] 用于控制 Overlaywindow 的隐藏
   /// [targetKey] 锚点 Widget 的 key，用于 OverlayWindow 的定位
   /// [popDirection] OverlayWindow 相对于 key 的展示位置， 默认 bottom
   /// [content] 要展示的内容
   /// [autoDismissOnTouchOutSide] 点击 OverlayWindow 外部是否自动消失，默认为 true
   /// [onDismiss] OverlayWindow 消失回调
-  static BrnOverlayController? showOverlayWindow(
+  static OverlayController? showOverlayWindow(
       BuildContext context, GlobalKey? targetKey,
       {Widget? content,
       OverlayPopDirection popDirection = OverlayPopDirection.bottom,
@@ -52,7 +52,7 @@ class OverlayWindow extends StatefulWidget {
 
     if (content == null || targetKey == null) return null;
 
-    BrnOverlayController? overlayController;
+    OverlayController? overlayController;
     OverlayEntry entry = OverlayEntry(builder: (context) {
       return GestureDetector(
           behavior: (autoDismissOnTouchOutSide)
@@ -74,12 +74,12 @@ class OverlayWindow extends StatefulWidget {
           ));
     });
 
-    overlayController = BrnOverlayController._(context, entry)..showOverlay();
+    overlayController = OverlayController._(context, entry)..showOverlay();
     return overlayController;
   }
 }
 
-class _BrnOverlayWindowState extends State<OverlayWindow> {
+class _OverlayWindowState extends State<OverlayWindow> {
   /// targetView的位置
   Rect? _showRect;
 
@@ -239,7 +239,7 @@ class _BrnOverlayWindowState extends State<OverlayWindow> {
 }
 
 /// [OverlayWindow] 组件展示隐藏控制器
-class BrnOverlayController {
+class OverlayController {
   OverlayEntry? _entry;
 
   BuildContext context;
@@ -247,7 +247,7 @@ class BrnOverlayController {
 
   bool get isOverlayShowing => _isOverlayShowing;
 
-  BrnOverlayController._(this.context, this._entry);
+  OverlayController._(this.context, this._entry);
 
   /// 显示OverlayWindow
   showOverlay() {
