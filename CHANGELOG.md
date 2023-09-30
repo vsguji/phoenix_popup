@@ -2,7 +2,7 @@
  * @Author: lipeng 1162423147@qq.com
  * @Date: 2023-09-22 10:55:53
  * @LastEditors: lipeng 1162423147@qq.com
- * @LastEditTime: 2023-09-30 22:21:22
+ * @LastEditTime: 2023-09-30 22:45:37
  * @FilePath: /phoenix_popup/CHANGELOG.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -38,3 +38,7 @@
 ## 1.0.7
 
 * [新增] example
+
+## 1.0.8
+
+* [新增] video
