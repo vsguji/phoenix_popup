@@ -2,7 +2,6 @@ name: phoenix_popup
 description: phoenix 将做为企业级基础组件:Popup,提供项目支持。
 version: 1.0.6
 homepage: 'https://github.com/vsguji/phoenix_popup.git'
-publish_to: 'https://github.com/vsguji/phoenix_popup.git'
 
 environment:
   sdk: '>=3.1.2 <4.0.0'
