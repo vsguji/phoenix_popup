@@ -156,10 +156,10 @@ class PopupWindow extends StatefulWidget {
   }
 
   @override
-  _BrnPopupWindowState createState() => _BrnPopupWindowState();
+  _PopupWindowState createState() => _PopupWindowState();
 }
 
-class _BrnPopupWindowState extends State<PopupWindow> {
+class _PopupWindowState extends State<PopupWindow> {
   /// targetView的位置
   Rect _showRect = Rect.zero;
 
@@ -190,8 +190,8 @@ class _BrnPopupWindowState extends State<PopupWindow> {
   @override
   void initState() {
     super.initState();
-    this._showRect = _getWidgetGlobalRect(widget.popKey);
-    this._screenSize = PlatformDispatcher.instance.views.first.physicalSize /
+    _showRect = _getWidgetGlobalRect(widget.popKey);
+    _screenSize = PlatformDispatcher.instance.views.first.physicalSize /
         PlatformDispatcher.instance.views.first.devicePixelRatio;
     _borderColor = (widget.borderColor ?? Colors.transparent).withAlpha(255);
     _backgroundColor =
