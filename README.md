@@ -2,7 +2,7 @@
  * @Author: lipeng 1162423147@qq.com
  * @Date: 2023-09-22 11:06:57
  * @LastEditors: lipeng 1162423147@qq.com
- * @LastEditTime: 2023-10-01 23:33:13
+ * @LastEditTime: 2023-10-01 23:35:18
  * @FilePath: /phoenix_popup/README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -26,8 +26,6 @@ phoenix 将做为企业级基础组件:Popup,提供项目支持。
 phoenix 将做为企业级基础组件:Popup,提供项目支持。
 
 !["企业级基础组件:Popup"](example/demo_gifts/popup.gif)
-
-!["Container transform gallery - normal speed and slow motion"](example/demo_gifs/container_transform_lineup.gif)
 
 ## Getting started
 
