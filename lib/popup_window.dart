@@ -460,15 +460,15 @@ class PhoenixPopupRoute extends PopupRoute {
 /// [index] Item 的索引
 /// [item] Item 内容
 /// 返回 true 则拦截点击事件，不再走 pop 逻辑
-typedef BrnPopupListItemClick = bool Function(int index, String item);
+typedef PopupListItemClick = bool Function(int index, String item);
 
 /// popup 用于构造自定义的 Item
 /// [index] Item 的索引
 /// [item] Item 内容
-typedef BrnPopupListItemBuilder = Widget? Function(int index, String item);
+typedef PopupListItemBuilder = Widget? Function(int index, String item);
 
 /// 基于 PopUpWindow 的 弹窗列表工具类
-class BrnPopupListWindow {
+class PopupListWindow {
   /// 带 itemBuilder 的 Popup List Window
   /// [popKey] 依附的组件和BrnPopUpWindow组件共同持有的GlobalKey
   /// [data] 要显示的文本数据列表
@@ -482,8 +482,8 @@ class BrnPopupListWindow {
     GlobalKey popKey, {
     List<String>? data,
     PopupDirection popDirection = PopupDirection.bottom,
-    BrnPopupListItemBuilder? itemBuilder,
-    BrnPopupListItemClick? onItemClick,
+    PopupListItemBuilder? itemBuilder,
+    PopupListItemClick? onItemClick,
     VoidCallback? onDismiss,
   }) {
     TextStyle textStyle = TextStyle(
@@ -563,7 +563,7 @@ class BrnPopupListWindow {
       PopupDirection popDirection = PopupDirection.bottom,
       double offset = 0,
       double? arrowOffset,
-      BrnPopupListItemClick? onItemClick,
+      PopupListItemClick? onItemClick,
       VoidCallback? onDismiss}) {
     assert(popKey.currentContext != null &&
         popKey.currentContext!.findRenderObject() != null);
@@ -638,7 +638,7 @@ class BrnPopupListWindow {
       BuildContext context,
       double minWidth,
       double maxWidth,
-      BrnPopupListItemBuilder? itemBuilder,
+      PopupListItemBuilder? itemBuilder,
       TextStyle textStyle,
       List<String> data,
       void Function(int index, String item) onItemClick) {
@@ -687,7 +687,7 @@ class BrnPopupListWindow {
     return maxWidth;
   }
 
-  static Widget _getTextWidget(BrnPopupListItemBuilder? itemBuilder,
+  static Widget _getTextWidget(PopupListItemBuilder? itemBuilder,
       List<String> data, String text, TextStyle textStyle) {
     if (itemBuilder == null) {
       return _getDefaultText(text, textStyle);
